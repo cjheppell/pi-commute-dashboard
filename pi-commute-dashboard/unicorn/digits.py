@@ -22,6 +22,12 @@ def get(digit):
     
     raise Exception('{0} was not a digit'.format(digit))
 
+def print_digit(unicorn, matrix, xOrigin, yOrigin, r, g, b):
+    for row in range(len(matrix)):
+        for col in range(len(matrix[row])):
+            if matrix[row][col] == 1:
+                unicorn.set_pixel(xOrigin + col, yOrigin - row, r, g, b)
+
 def one():
     return  [
                 [0,1,0],

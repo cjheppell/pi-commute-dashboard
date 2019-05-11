@@ -7,6 +7,7 @@ from transport import TrainStatus
 import time
 
 from .digits import get
+from .digits import print_digit
 
 unicorn.brightness(0.8)
 u_width, u_height = unicorn.get_shape()
@@ -27,15 +28,13 @@ def display_departure_time(departure):
     start_y = u_height - 1
     start_x = 0
 
-    r, g, b = get_light_colour(departure.status)
-
     dep_time = departure.departure_time.replace(':', '')
+
+    r, g, b = get_light_colour(departure.status)
+    
     for digit in list(dep_time):
         matrix = get(digit)
-        for row in range(len(matrix)):
-            for col in range(len(matrix[row])):
-                if matrix[row][col] == 1:
-                    unicorn.set_pixel(start_x + col, start_y - row, r, g, b)
+        print_digit(unicorn, matrix, start_x, start_y, r, g, b)
         start_x = start_x + 4
 
 def get_light_colour(status):
