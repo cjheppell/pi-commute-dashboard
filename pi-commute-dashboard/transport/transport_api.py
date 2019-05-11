@@ -15,7 +15,7 @@ def make_car_request(api_id, api_key, from_postcode, to_postcode):
     shortest_route = sorted(parsed_json['routes'], key=(lambda x: get_seconds_from_time(x['duration'])))[0]
     
     CarJourney = collections.namedtuple('CarJourney', 'time_in_seconds distance from_name to_name')
-    return CarJourney(time_in_seconds=get_seconds_from_time(shortest_route['duration']), 
+    return CarJourney(time_in_seconds=int(get_seconds_from_time(shortest_route['duration'])), 
                         distance=shortest_route['distance'], 
                         from_name=shortest_route['from_point_name'], 
                         to_name=shortest_route['to_point_name'])
