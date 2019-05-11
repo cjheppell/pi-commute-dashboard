@@ -1,8 +1,8 @@
 import requests
 import json
 from dateutil import parser
-import typing
 from enum import Enum
+import collections
 
 def make_car_request(api_id, api_key, from_postcode, to_postcode):
     url = "http://transportapi.com/v3/uk/car/journey/from/postcode:{0}/to/postcode:{1}.json?app_id={2}&app_key={3}".format(from_postcode, 
@@ -14,16 +14,11 @@ def make_car_request(api_id, api_key, from_postcode, to_postcode):
     parsed_json = json.loads(response.text)
     shortest_route = sorted(parsed_json['routes'], key=(lambda x: get_seconds_from_time(x['duration'])))[0]
     
-    return CarJourney(get_seconds_from_time(shortest_route['duration']), 
-                        shortest_route['distance'], 
-                        shortest_route['from_point_name'], 
-                        shortest_route['to_point_name'])
-
-class CarJourney(typing.NamedTuple):
-    time_in_seconds: int
-    distance: int
-    from_name: str
-    to_name: str
+    CarJourney = collections.namedtuple('CarJourney', 'time_in_seconds distance from_name to_name')
+    return CarJourney(time_in_seconds=get_seconds_from_time(shortest_route['duration']), 
+                        distance=shortest_route['distance'], 
+                        from_name=shortest_route['from_point_name'], 
+                        to_name=shortest_route['to_point_name'])
 
 def get_seconds_from_time(time_str):
     h, m, s = time_str.split(':')
@@ -44,8 +39,9 @@ def make_train_request(api_id, api_key, from_station, to_station, operator):
     return [create_train_departure(d, from_station, to_station) for d in departures]
 
 def create_train_departure(raw_departure, origin, destination):
-    return TrainDeparture(parse_train_status(raw_departure['status']),
-                            raw_departure['expected_departure_time'])
+    TrainDeparture = collections.namedtuple('TrainDeparture', 'status departure_time')
+    return TrainDeparture(status=parse_train_status(raw_departure['status']),
+                            departure_time=raw_departure['expected_departure_time'])
 
 def parse_train_status(status):
     if status == 'LATE':
@@ -57,10 +53,6 @@ def parse_train_status(status):
 
     return TrainStatus.UNKNOWN
     
-class TrainDeparture(typing.NamedTuple):
-    status: Enum
-    departure_time: str
-
 class TrainStatus(Enum):
     OK = 1
     LATE = 2
