@@ -1,5 +1,6 @@
 import argparse
 import transport
+import unicorn
 
 parser = argparse.ArgumentParser(description='Start pi-commute-dashboard')
 parser.add_argument('--transportApiId', type=str, nargs=1, required=True)
@@ -16,4 +17,7 @@ road_traffic = transport.RoadTraffic(args.transportApiId[0], args.transportApiKe
 print(road_traffic.GetJourney(args.fromPostcode[0], args.toPostcode[0]))
 
 trains = transport.Trains(args.transportApiId[0], args.transportApiKey[0])
-print(trains.GetDepartures(args.fromStation[0], args.toStation[0], args.operator[0]))
+departures = trains.GetDepartures(args.fromStation[0], args.toStation[0], args.operator[0])
+print(departures)
+
+unicorn.show_train_departures(departures)
