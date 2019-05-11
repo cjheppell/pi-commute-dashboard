@@ -6,40 +6,37 @@ except ImportError:
 from transport import TrainStatus
 import time
 
-unicorn.rotation(90)
+from .digits import get
+
 unicorn.brightness(0.8)
 u_width, u_height = unicorn.get_shape()
 
 def show_train_departures(train_departures):
     for departure in train_departures:
         try:
-            display_departure(departure)
+            display_departure_time(departure)
+            unicorn.show()
             time.sleep(5)
             unicorn.off()
             time.sleep(1)
-        except:
+        except Exception as e:
+            print(e)
             pass
-
-def display_departure(departure):
-    display_traffic_light(departure)
-    display_departure_time(departure)
-
+            
 def display_departure_time(departure):
-    pass
+    start_y = u_height - 1
+    start_x = 0
 
-def display_traffic_light(departure):
-    light_width = 2
-    light_height = 2
-    (r, g, b) = get_light_colour(departure.status)
-    
-    start_y = u_height / 2 + 2
-    start_x = 0 + light_width
+    r, g, b = get_light_colour(departure.status)
 
-    for x in range (light_width):
-        for y in range(light_height):
-            unicorn.set_pixel(start_x + x, start_y + y, r, g, b)
-    
-    unicorn.show()
+    dep_time = departure.departure_time.replace(':', '')
+    for digit in list(dep_time):
+        matrix = get(digit)
+        for row in range(len(matrix)):
+            for col in range(len(matrix[row])):
+                if matrix[row][col] == 1:
+                    unicorn.set_pixel(start_x + col, start_y - row, r, g, b)
+        start_x = start_x + 4
 
 def get_light_colour(status):
     if status == TrainStatus.OK:
