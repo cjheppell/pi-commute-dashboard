@@ -32,8 +32,8 @@ weather = weather.Weather(args.openWeatherMapApiKey[0])
 forecast_departure = weather.GetWeatherForecast(args.fromCity[0], args.departureHour[0])
 forecast_return = weather.GetWeatherForecast(args.toCity[0], args.returnHour[0])
 
-unicorn.show_weather_report(forecast_departure)
-unicorn.show_weather_report(forecast_return)
+unicorn.show_weather_report(forecast_departure, is_return=False)
+unicorn.show_weather_report(forecast_return, is_return=True)
 
 unicorn.show_train_departures(departures)
 unicorn.show_car_journey(car_journey)

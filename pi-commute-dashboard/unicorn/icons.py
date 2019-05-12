@@ -25,6 +25,10 @@ def get(icon):
         return clear()
     if icon == 'question':
         return question()
+    if icon == 'small_arrow_up':
+        return small_arrow_up()
+    if icon == 'small_arrow_down':
+        return small_arrow_down()
     raise Exception('{0} is an unrecognised icon'.format(icon))
 
 def warning():
@@ -221,6 +225,24 @@ def question():
                 [0,0,0,0,1,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,1,0,0,0,0,0],
+            ]
+
+def small_arrow_up():
+    return  [
+                [0,0,1,0,0],
+                [0,1,1,1,0],
+                [1,0,1,0,1],
+                [0,0,1,0,0],
+                [0,0,1,0,0],
+            ]
+
+def small_arrow_down():
+    return  [
+                [0,0,1,0,0],
+                [0,0,1,0,0],
+                [1,0,1,0,1],
+                [0,1,1,1,0],
+                [0,0,1,0,0],
             ]
 
 def print_icon(unicorn, matrix, xOrigin, yOrigin, r1, g1, b1, r2, g2, b2, r3, g3, b3):

@@ -14,8 +14,8 @@ from weather import WeatherCondition
 unicorn.brightness(0.8)
 u_width, u_height = unicorn.get_shape()
 
-def show_weather_report(weather_report):    
-    start_y = u_height - 3
+def show_weather_report(weather_report, is_return):    
+    start_y = u_height
     start_x = 3
 
     if weather_report.type == WeatherCondition.THUNDERSTORM:
@@ -61,6 +61,25 @@ def show_weather_report(weather_report):
         matrix = get_icon('question')
         print_icon(unicorn, matrix, start_x, start_y, r1, g1, b1, r2, g2, b2, r3, g3, b3)
 
+    show_direction(is_return)
+
     unicorn.show()
     time.sleep(5)
     unicorn.off()
+
+def show_direction(is_return):
+    start_y = u_height - 10 - 1
+    start_x = 5
+
+    if is_return:
+        r1, g1, b1 = (0, 0, 255)
+        r2, g2, b2 = (r1, g1, b1)
+        r3, g3, b3 = (r1, g1, b1)
+        matrix = get_icon('small_arrow_down')
+        print_icon(unicorn, matrix, start_x, start_y, r1, g1, b1, r2, g2, b2, r3, g3, b3)
+    else:
+        r1, g1, b1 = (0, 255, 0)
+        r2, g2, b2 = (r1, g1, b1)
+        r3, g3, b3 = (r1, g1, b1)
+        matrix = get_icon('small_arrow_up')
+        print_icon(unicorn, matrix, start_x, start_y, r1, g1, b1, r2, g2, b2, r3, g3, b3)
