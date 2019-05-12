@@ -11,7 +11,9 @@ from .digits import print_digit
 from .icons import get as get_icon
 from .icons import print_icon
 
-unicorn.brightness(0.8)
+from .fade import fade_in
+from .fade import fade_out
+
 u_width, u_height = unicorn.get_shape()
 
 def show_train_departures(train_departures):
@@ -19,10 +21,9 @@ def show_train_departures(train_departures):
         try:
             display_departure_time(departure)
             display_icon(departure.status)
-            unicorn.show()
+            fade_in()
             time.sleep(5)
-            unicorn.off()
-            time.sleep(1)
+            fade_out()
         except Exception as e:
             print(e)
             pass

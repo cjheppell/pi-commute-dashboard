@@ -15,7 +15,9 @@ from .digits import print_digit
 
 from weather import WeatherCondition
 
-unicorn.brightness(0.8)
+from .fade import fade_in
+from .fade import fade_out
+
 u_width, u_height = unicorn.get_shape()
 
 def show_weather_report(weather_report, is_return):    
@@ -68,9 +70,9 @@ def show_weather_report(weather_report, is_return):
     show_direction(is_return)
     show_temperature(weather_report.temp_c)
 
-    unicorn.show()
+    fade_in()
     time.sleep(5)
-    unicorn.off()
+    fade_out()
 
 def show_direction(is_return):
     start_y = u_height - 10 - 1

@@ -12,6 +12,9 @@ from .icons import print_icon
 from weather import WeatherCondition
 from transport import Transport
 
+from .fade import fade_in
+from .fade import fade_out
+
 u_width, u_height = unicorn.get_shape()
 
 def show_summary(recommended_transport):
@@ -37,6 +40,6 @@ def show_summary(recommended_transport):
         matrix = get_icon('question')
         print_icon(unicorn, matrix, start_x, start_y, r1, g1, b1, r2, g2, b2, r3, g3, b3)
     
-    unicorn.show()
+    fade_in()
     time.sleep(5)
-    unicorn.off()
+    fade_out()

@@ -10,7 +10,9 @@ import math
 from .digits import get
 from .digits import print_digit
 
-unicorn.brightness(0.8)
+from .fade import fade_in
+from .fade import fade_out
+
 u_width, u_height = unicorn.get_shape()
 
 def show_car_journey(car_journey):
@@ -22,6 +24,6 @@ def show_car_journey(car_journey):
         print_digit(unicorn, matrix, start_x, start_y, 0, 64, 255)
         start_x = start_x + 4
 
-    unicorn.show()
+    fade_in()
     time.sleep(5)
-    unicorn.off()
+    fade_out()
