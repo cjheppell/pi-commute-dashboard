@@ -42,7 +42,7 @@ def get_light_colour(status):
         return (0, 255, 0)
     if status == TrainStatus.LATE:
         return (255, 128, 128)
-    if status == TrainStatus.CANCELLED:
+    if status == TrainStatus.CANCELLED or status == TrainStatus.BUS:
         return (255, 0, 0)
     if status == TrainStatus.UNKNOWN:
         return (255, 255, 255)

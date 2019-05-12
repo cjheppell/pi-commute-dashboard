@@ -48,6 +48,8 @@ def parse_train_status(status):
         return TrainStatus.LATE
     if status == 'CANCELLED':
         return TrainStatus.CANCELLED
+    if status == 'BUS':
+        return TrainStatus.BUS
     if status == 'ON TIME' or status == 'STARTS HERE' or status == 'EARLY':
         return TrainStatus.OK
 
@@ -57,4 +59,5 @@ class TrainStatus(Enum):
     OK = 1
     LATE = 2
     CANCELLED = 3
-    UNKNOWN = 4
+    BUS = 4
+    UNKNOWN = 5
