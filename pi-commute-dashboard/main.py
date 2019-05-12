@@ -29,6 +29,8 @@ print(departures)
 
 weather = weather.Weather(args.openWeatherMapApiKey[0])
 
+unicorn.show_summary(transport.Transport.CAR)
+
 forecast_departure = weather.GetWeatherForecast(args.fromCity[0], args.departureHour[0])
 forecast_return = weather.GetWeatherForecast(args.toCity[0], args.returnHour[0])
 
