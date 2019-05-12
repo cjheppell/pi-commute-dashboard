@@ -38,7 +38,7 @@ latest_departure_timestamp = int(time.mktime(latest_departure_time.timetuple()))
 recommended_transport = recommendation.recommend_transport(forecast_departure, forecast_return, departures, latest_departure_timestamp)
 print('Recommended transport: {0}'.format(recommended_transport))
 
-unicorn.show_summary(transport.Transport.CAR)
+unicorn.show_summary(recommended_transport)
 
 unicorn.show_weather_report(forecast_departure, is_return=False)
 unicorn.show_weather_report(forecast_return, is_return=True)
