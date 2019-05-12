@@ -23,10 +23,6 @@ parser.add_argument('--latestDepartureHour', type=int, nargs=1, required=True)
 
 args = parser.parse_args()
 
-road_traffic = transport.RoadTraffic(args.transportApiId[0], args.transportApiKey[0])
-car_journey = road_traffic.GetJourney(args.fromPostcode[0], args.toPostcode[0])
-print(car_journey)
-
 trains = transport.Trains(args.transportApiId[0], args.transportApiKey[0])
 departures = trains.GetDepartures(args.fromStation[0], args.toStation[0], args.operator[0])
 print(departures)
@@ -48,4 +44,3 @@ unicorn.show_weather_report(forecast_departure, is_return=False)
 unicorn.show_weather_report(forecast_return, is_return=True)
 
 unicorn.show_train_departures(departures)
-unicorn.show_car_journey(car_journey)
