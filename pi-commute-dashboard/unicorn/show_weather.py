@@ -66,7 +66,7 @@ def show_weather_report(weather_report, is_return):
         print_icon(unicorn, matrix, start_x, start_y, r1, g1, b1, r2, g2, b2, r3, g3, b3)
 
     show_direction(is_return)
-    show_time(weather_report.time)
+    show_temperature(weather_report.temp_c)
 
     unicorn.show()
     time.sleep(5)
@@ -89,14 +89,20 @@ def show_direction(is_return):
         matrix = get_icon('small_arrow_up')
         print_icon(unicorn, matrix, start_x, start_y, r1, g1, b1, r2, g2, b2, r3, g3, b3)
 
-def show_time(timestamp):
+def show_temperature(temp_c):
     start_y = u_height - 10 - 1
     start_x = 5 + 1 + 1
 
-    hour = datetime.utcfromtimestamp(timestamp).strftime('%H')
-
     r, g, b = (255, 255, 255)
-    for digit in list(hour):
+
+    if temp_c < 10:
+        r, g, b = (0, 128, 255)    
+    if temp_c < 20:
+        r, g, b = (128, 64, 32)
+    else: 
+        r, g, b = (255, 128, 0)
+
+    for digit in list(str(int(temp_c))):
         matrix = get_digit(digit)
         print_digit(unicorn, matrix, start_x, start_y, r, g, b)
         start_x = start_x + 4
